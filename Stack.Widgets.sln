@@ -10,7 +10,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repo", "Repo", "{621EEA80-6
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Widgets", "src\Widgets.csproj", "{292BD616-51DA-43E4-8E91-19FDD78B44CA}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{292BD616-51DA-43E4-8E91-19FDD78B44CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292BD616-51DA-43E4-8E91-19FDD78B44CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292BD616-51DA-43E4-8E91-19FDD78B44CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292BD616-51DA-43E4-8E91-19FDD78B44CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
