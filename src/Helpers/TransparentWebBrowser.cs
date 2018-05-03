@@ -1,11 +1,12 @@
 ﻿namespace LostTech.Stack.Widgets.Helpers
 {
+    using System;
     using System.Windows;
     using System.Windows.Controls;
 
-    public class TransparentWebBrowser: Control
+    public class TransparentWebBrowser: Control, IDisposable
     {
-        WebBrowserOverlayWindow _WebBrowserOverlayWindow;
+        WebBrowserOverlayWindow overlay;
         public static readonly DependencyProperty TargetElementProperty =
             DependencyProperty.Register(nameof(TargetElement), typeof(FrameworkElement), typeof(TransparentWebBrowser),
                 new PropertyMetadata(TargetElementPropertyChanged));
@@ -23,19 +24,21 @@
         }
 
         private static void SourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args) {
-            if (sender is TransparentWebBrowser transparentWebBrowser) {
-                transparentWebBrowser._WebBrowserOverlayWindow.Source = args.NewValue as string;
+            if (sender is TransparentWebBrowser transparentWebBrowser
+                && transparentWebBrowser.overlay != null) {
+                transparentWebBrowser.overlay.Source = args.NewValue as string;
             }
         }
 
         private static void TargetElementPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args) {
-            if (sender is TransparentWebBrowser transparentWebBrowser) {
-                transparentWebBrowser._WebBrowserOverlayWindow.TargetElement = args.NewValue as FrameworkElement;
+            if (sender is TransparentWebBrowser transparentWebBrowser
+                && transparentWebBrowser.overlay != null) {
+                transparentWebBrowser.overlay.TargetElement = args.NewValue as FrameworkElement;
             }
         }
 
         public TransparentWebBrowser() {
-            this._WebBrowserOverlayWindow = new WebBrowserOverlayWindow();
+            this.overlay = new WebBrowserOverlayWindow();
 
             //TODO: Figure out how to automatically set the TargetElement binding...
 
@@ -51,6 +54,11 @@
 
         static TransparentWebBrowser() {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TransparentWebBrowser), new FrameworkPropertyMetadata(typeof(TransparentWebBrowser)));
+        }
+
+        public void Dispose() {
+            this.overlay?.Close();
+            this.overlay = null;
         }
     }
 }

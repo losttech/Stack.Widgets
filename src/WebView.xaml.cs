@@ -1,9 +1,6 @@
 ﻿namespace LostTech.Stack.Widgets
 {
     using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Navigation;
@@ -11,12 +8,16 @@
     /// <summary>
     /// Interaction logic for WebView.xaml
     /// </summary>
-    public partial class WebView : UserControl
+    public partial class WebView : UserControl, IDisposable
     {
         public WebView() {
             this.InitializeComponent();
 
-            //this.Browser.Navigated += this.BrowserOnNavigated;
+            this.Loaded += (sender, args) => {
+                var parentWindow = Window.GetWindow(this);
+                if (parentWindow != null)
+                    parentWindow.Closed += (o, eventArgs) => { this.Dispose(); };
+            };
         }
 
         void BrowserOnNavigated(object sender, NavigationEventArgs e) {
@@ -36,7 +37,6 @@
         public static readonly DependencyProperty URLProperty =
             DependencyProperty.Register(nameof(URL), typeof(Uri), typeof(WebView), 
                 new PropertyMetadata(defaultValue: new Uri("about:blank")
-                    //, propertyChangedCallback: UrlChanged
                     ),
                 validateValueCallback: ValidateUrl);
 
@@ -49,12 +49,10 @@
 
             return false;
         }
-
-        //static void UrlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-        //    var self = (WebView)d;
-        //    var destination = e.NewValue as Uri ?? new Uri("about:blank");
-        //    self.Browser.Navigate(destination);
-        //}
         #endregion URL
+
+        public void Dispose() {
+            this.Browser.Dispose();
+        }
     }
 }

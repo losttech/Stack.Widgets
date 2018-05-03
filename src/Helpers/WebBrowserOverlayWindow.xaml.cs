@@ -94,10 +94,10 @@
         protected override void OnClosed(EventArgs e) {
             base.OnClosed(e);
 
-            this.Owner.LocationChanged -= PositionAndResize;
-            if (this.TargetElement != null) {
-                this.TargetElement.LayoutUpdated -= PositionAndResize;
-            }
+            if (this.Owner != null)
+                this.Owner.LocationChanged -= this.PositionAndResize;
+            if (this.TargetElement != null)
+                this.TargetElement.LayoutUpdated -= this.PositionAndResize;
         }
 
         private void PositionAndResize(object sender, EventArgs e) {

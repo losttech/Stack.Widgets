@@ -7,6 +7,6 @@
         ShowInTaskbar="False"
         ResizeMode="NoResize">
   <WindowsFormsHost x:Name="wfh">
-    <winForms:WebBrowser x:Name="Browser" />
+    <winForms:WebBrowser x:Name="Browser" ScriptErrorsSuppressed="True" />
   </WindowsFormsHost>
 </Window>
