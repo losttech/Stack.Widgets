@@ -1,6 +1,7 @@
 ﻿namespace LostTech.Stack.Widgets
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Navigation;
@@ -53,6 +54,20 @@
 
         public void Dispose() {
             this.Browser.Dispose();
+        }
+
+        void WebView_OnLoaded(object sender, RoutedEventArgs e) {
+            this.FixLayoutBugWithDPI();
+        }
+
+        // see https://github.com/Microsoft/WindowsCommunityToolkit/issues/2076
+        async void FixLayoutBugWithDPI() {
+            await Task.Yield();
+
+            var width = this.GetValue(FrameworkElement.WidthProperty);
+            this.Width = 600.0;
+            await Task.Yield();
+            this.SetValue(FrameworkElement.WidthProperty, width);
         }
     }
 }
