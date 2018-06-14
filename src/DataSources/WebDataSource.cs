@@ -2,16 +2,22 @@
     using System;
     using System.Net.Http;
     using System.Windows;
+    using System.Windows.Input;
     using System.Windows.Threading;
     using LostTech.Stack.Widgets.DataBinding;
+    using Prism.Commands;
 
-    public sealed class WebDataSource: NotifyPropertyChangedBase
+    public sealed class WebDataSource: DependencyObjectNotifyBase, IRefreshable
     {
         string url;
         string content;
         Exception error;
         DateTime contentTimestamp;
         DateTime? expiration;
+
+        public WebDataSource() {
+            this.RefreshCommand = new DelegateCommand(this.RefreshInternal);
+        }
 
         /// <summary>
         /// Gets or sets URL to retrieve data from
@@ -22,7 +28,7 @@
                 if (value == this.url)
                     return;
                 this.url = value;
-                this.Refresh();
+                this.RefreshInternal();
                 this.OnPropertyChanged();
             }
         }
@@ -77,8 +83,12 @@
         /// Full response body
         /// </summary>
         public HttpResponseMessage Response { get; private set; }
+        /// <summary>
+        /// Command, that initiates asynchronous <see cref="Content"/> refresh.
+        /// </summary>
+        public ICommand RefreshCommand { get; }
 
-        async void Refresh() {
+        async void RefreshInternal() {
             var client = new HttpClient();
             try {
                 this.Response = await client.GetAsync(this.Url);
@@ -128,7 +138,7 @@
                     Application.Current.Dispatcher.ShutdownStarted -= ShutdownHandler;
                     timer = null;
 
-                    this.Refresh();
+                    this.RefreshInternal();
                 };
                 timer.Start();
             }

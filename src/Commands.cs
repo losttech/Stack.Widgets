@@ -4,7 +4,6 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Windows.Input;
-    using System.Windows.Navigation;
     using Prism.Commands;
 
     public static class Commands
