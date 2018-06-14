@@ -4,12 +4,15 @@
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Navigation;
+    using LostTech.Stack.Widgets.DataSources;
+    using Prism.Commands;
 
     /// <summary>
     /// Interaction logic for WebView.xaml
     /// </summary>
-    public partial class WebView : UserControl, IDisposable
+    public partial class WebView : UserControl, IDisposable, IRefreshable
     {
         public WebView() {
             this.InitializeComponent();
@@ -19,6 +22,8 @@
                 if (parentWindow != null)
                     parentWindow.Closed += (o, eventArgs) => { this.Dispose(); };
             };
+
+            this.RefreshCommand = new DelegateCommand(this.Browser.Refresh);
         }
 
         void BrowserOnNavigated(object sender, NavigationEventArgs e) {
@@ -69,5 +74,7 @@
             await Task.Yield();
             this.SetValue(FrameworkElement.WidthProperty, width);
         }
+
+        public ICommand RefreshCommand { get; }
     }
 }
