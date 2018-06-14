@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.4" />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="Microsoft.Toolkit.Win32.UI.Controls" Version="3.0.0" />
