@@ -104,3 +104,12 @@ In this example we create a data source from a static .NET [DateTime.Now](https:
 **DataSource.RefreshInterval** (bindable, **required**) - sets the refresh interval. This property can actually be set on any *Refreshable* data source, see below.
 ### Provided data
 **Source** (bindable) - gets the data from the wrapped data source.
+
+## Refreshable data sources
+Some data sources (currently - all out of box ones) are *refreshable*. They implement ```IRefreshable``` interface, which provides a ```RefreshCommand```, that can be executed to refresh data. For example:
+```xml
+<Button Command="{Binding RefreshCommand, Source={StaticResource SOME_REFRESHABLE_DATASOURCE}}">Refresh!</Button>
+```
+The following property can be set to update them at regular intervals:
+
+**DataSource.RefreshInterval** (bindable) - sets the refresh interval.
