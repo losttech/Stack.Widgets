@@ -1,6 +1,17 @@
 # Stack.Widgets
 A collection of widgets for Stack
 
+- [Widgets](#widgets)
+  - [Usage](#usage)
+  - [WebView](#webview)
+  - [Underlay](#underlay)
+- [Data Sources](#data-sources)
+  - [Usage](#usage)
+  - [WebDataSource](#webdatasource)
+  - [RefreshableDataSource](#refreshabledatasource)
+  - [Refreshable data sources](#refreshable-data-sources)
+- [Parsers and data binding](docs/DataBinding.md)
+
 # Widgets
 ## Usage
 Requires Stack v2.1+ (release planned for the end of June 2018).
