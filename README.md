@@ -66,7 +66,7 @@ For example:
 ```
 
 ## WebDataSource
-```WebDataSource``` allows you to fetch data from the Internet. Can refresh data automatically, if the remote source provides expiration information (see ```Expiration``` below).
+```WebDataSource``` allows you to fetch data from the Internet. Can refresh data automatically, if the remote source provides expiration information (see ```Expiration``` below). This data source is *Refreshable* (see below).
 ### Settable properties
 **Url** (bindable, **required**) - sets the URL to fetch data from.
 
@@ -85,3 +85,22 @@ Notes: ```WebDataSource``` does not currently provide any authentication mechani
 **Response***: [HttpResponseMessage](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage) (bindable, optional, *OneWay*) - if any response was received (see ```Error``` above otherwise), this will contain .NET standard response object. 
 
 Its most common properties are [IsSuccessStatusCode](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage.issuccessstatuscode), that indicates, if request was succesfully processed, and [StatusCode](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage.statuscode), that returns corresponding HTTP status code.
+
+## RefreshableDataSource
+```RefreshableDataSource``` is actually just a wrapper for other data sources, or .NET properties. It enables periodic refresh of data from the source, even if the source does not update automatically. Hense, this data source is *Refreshable*.
+
+### Example
+In this example we create a data source from a static .NET [DateTime.Now](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.now) property. ```RefreshableDataSource``` wrapping is required, because ```DateTime.Now``` does not raise any change events, so UI does not know when to update it. We set the refresh interval to 1 second.
+```xml
+<sources:RefreshableDataSource x:Key="TimeSource" 
+         Source="{c:Binding sys:DateTime.Now}"
+         sources:DataSource.RefreshInterval="0:0:1"
+         />
+...
+<TextBlock Text="{Binding Source, Source={StaticResource TimeSource}, Mode=OneWay}"/>
+```
+### Settable properties
+**Source** (bindable, **required**) - sets the source property to get the data from. The same property is used to retrieve the data.
+**DataSource.RefreshInterval** (bindable, **required**) - sets the refresh interval. This property can actually be set on any *Refreshable* data source, see below.
+### Provided data
+**Source** (bindable) - gets the data from the wrapped data source.
