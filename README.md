@@ -125,3 +125,6 @@ Some data sources (currently - all out of box ones) are *refreshable*. They impl
 The following property can be set to update them at regular intervals:
 
 **DataSource.RefreshInterval** (bindable) - sets the refresh interval.
+
+## Samples
+Sample inline widgets are demostrated in the [blog post](http://stack.blogs.losttech.software/Inline-Widgets/)
