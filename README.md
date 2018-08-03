@@ -11,6 +11,7 @@ A collection of widgets for Stack
   - [RefreshableDataSource](#refreshabledatasource)
   - [Refreshable data sources](#refreshable-data-sources)
 - [Parsers and data binding](docs/DataBinding.md)
+- [Samples](http://stack.blogs.losttech.software/Inline-Widgets/)
 
 # Widgets
 ## Usage
