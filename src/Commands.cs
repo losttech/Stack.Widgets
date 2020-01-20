@@ -19,7 +19,10 @@
             if (uri.Scheme.ToLowerInvariant().Any(c => c < 'a' || c > 'z'))
                 return;
 
-            Process.Start(uri.ToString());
+            var startInfo = new ProcessStartInfo(uri.ToString()) {
+                UseShellExecute = true,
+            };
+            Process.Start(startInfo);
         });
     }
 }
