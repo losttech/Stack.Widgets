@@ -23,7 +23,7 @@
                     parentWindow.Closed += (o, eventArgs) => { this.Dispose(); };
             };
 
-            this.RefreshCommand = new DelegateCommand(this.Browser.Refresh);
+            this.RefreshCommand = new DelegateCommand(this.Browser.Reload);
         }
 
         void BrowserOnNavigated(object sender, NavigationEventArgs e) {
