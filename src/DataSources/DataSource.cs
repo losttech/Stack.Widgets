@@ -21,14 +21,11 @@
                 typeof(DispatcherTimer), typeof(DependencyObject), new PropertyMetadata(null));
 
         static void OnRefreshIntervalChanged(DependencyObject d, DependencyPropertyChangedEventArgs change) {
-            if (!(d is IRefreshable refreshable))
+            if (d is not IRefreshable refreshable)
                 return;
 
             var timer = (DispatcherTimer)d.GetValue(RefresherPropertyKey.DependencyProperty);
-            Duration value = Duration.Forever;
-            bool newValue = change.NewValue != null;
-            if (newValue && change.NewValue is Duration)
-                value = (Duration)change.NewValue;
+            Duration value = change.NewValue is Duration duration ? duration : Duration.Forever;
 
             if (value.HasTimeSpan) {
                 if (timer == null) {

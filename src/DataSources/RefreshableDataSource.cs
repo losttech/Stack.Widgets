@@ -8,8 +8,8 @@
 
     public class RefreshableDataSource: DependencyObjectNotifyBase, IRefreshable {
         public object Source {
-            get => GetValue(SourceProperty);
-            set => SetValue(SourceProperty, value);
+            get => this.GetValue(SourceProperty);
+            set => this.SetValue(SourceProperty, value);
         }
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register(nameof(Source), typeof(object), typeof(RefreshableDataSource), new PropertyMetadata(null));

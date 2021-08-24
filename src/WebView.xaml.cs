@@ -35,13 +35,13 @@
 
         #region URL
         public Uri URL {
-            get { return (Uri)this.GetValue(URLProperty); }
-            set { this.SetValue(URLProperty, value); }
+            get => (Uri)this.GetValue(URLProperty);
+            set => this.SetValue(URLProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty URLProperty =
-            DependencyProperty.Register(nameof(URL), typeof(Uri), typeof(WebView), 
+            DependencyProperty.Register(nameof(URL), typeof(Uri), typeof(WebView),
                 new PropertyMetadata(defaultValue: new Uri("about:blank")
                     ),
                 validateValueCallback: ValidateUrl);
@@ -58,6 +58,11 @@
         #endregion URL
 
         public void Dispose() {
+            this.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
             this.Browser.Dispose();
         }
 
@@ -69,7 +74,7 @@
         async void FixLayoutBugWithDPI() {
             await Task.Yield();
 
-            var width = this.GetValue(FrameworkElement.WidthProperty);
+            object width = this.GetValue(FrameworkElement.WidthProperty);
             this.Width = 600.0;
             await Task.Yield();
             this.SetValue(FrameworkElement.WidthProperty, width);

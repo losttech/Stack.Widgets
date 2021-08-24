@@ -128,10 +128,10 @@
                 var timer = new DispatcherTimer(DispatcherPriority.ApplicationIdle) {
                     Interval = cacheControl.MaxAge.Value,
                 };
-                EventHandler ShutdownHandler = delegate {
+                void ShutdownHandler(object sender, EventArgs e) {
                     timer?.Stop();
                     timer = null;
-                };
+                }
                 Application.Current.Dispatcher.ShutdownStarted += ShutdownHandler;
                 timer.Tick += delegate {
                     timer?.Stop();

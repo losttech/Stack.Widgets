@@ -11,8 +11,8 @@
             if (value == null)
                 return null;
 
-            if (!(value is string str))
-                throw new ArgumentException();
+            if (value is not string str)
+                throw new ArgumentException("Only string values are supported");
 
             return this.ConvertHtml(str)?.Trim();
         }
@@ -21,28 +21,28 @@
 
 
         public string Convert(string path) {
-            HtmlDocument doc = new HtmlDocument();
+            var doc = new HtmlDocument();
             doc.Load(path);
 
-            StringWriter sw = new StringWriter();
-            ConvertTo(doc.DocumentNode, sw);
+            var sw = new StringWriter();
+            this.ConvertTo(doc.DocumentNode, sw);
             sw.Flush();
             return sw.ToString();
         }
 
         public string ConvertHtml(string html) {
-            HtmlDocument doc = new HtmlDocument();
+            var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            StringWriter sw = new StringWriter();
-            ConvertTo(doc.DocumentNode, sw);
+            var sw = new StringWriter();
+            this.ConvertTo(doc.DocumentNode, sw);
             sw.Flush();
             return sw.ToString();
         }
 
         private void ConvertContentTo(HtmlNode node, TextWriter outText) {
             foreach (HtmlNode subnode in node.ChildNodes) {
-                ConvertTo(subnode, outText);
+                this.ConvertTo(subnode, outText);
             }
         }
 
@@ -54,7 +54,7 @@
                 break;
 
             case HtmlNodeType.Document:
-                ConvertContentTo(node, outText);
+                this.ConvertContentTo(node, outText);
                 break;
 
             case HtmlNodeType.Text:
@@ -85,7 +85,7 @@
                 }
 
                 if (node.HasChildNodes) {
-                    ConvertContentTo(node, outText);
+                    this.ConvertContentTo(node, outText);
                 }
                 break;
             }

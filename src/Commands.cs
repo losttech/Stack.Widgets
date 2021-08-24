@@ -9,7 +9,7 @@
     public static class Commands
     {
         public static ICommand LaunchUrl { get; } = new DelegateCommand<object>(o => {
-            if (!(o is Uri uri) &&
+            if (o is not Uri uri &&
                 !(o is string str && Uri.TryCreate(str, UriKind.Absolute, out uri)))
                 return;
 
