@@ -58,7 +58,7 @@
         #endregion URL
 
         public void Dispose() {
-            this.Dispose();
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
