@@ -46,8 +46,8 @@
             }
         }
 
-        static void RefreshTimerOnTick(object sender, EventArgs e) {
-            var timer = (DispatcherTimer)sender;
+        static void RefreshTimerOnTick(object? sender, EventArgs e) {
+            var timer = (DispatcherTimer)sender!;
             var refreshable = (IRefreshable)timer.Tag;
             if (refreshable.RefreshCommand.CanExecute(null))
                 refreshable.RefreshCommand.Execute(null);

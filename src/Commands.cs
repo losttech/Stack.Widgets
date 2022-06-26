@@ -10,7 +10,7 @@
     {
         public static ICommand LaunchUrl { get; } = new DelegateCommand<object>(o => {
             if (o is not Uri uri &&
-                !(o is string str && Uri.TryCreate(str, UriKind.Absolute, out uri)))
+                !(o is string str && Uri.TryCreate(str, UriKind.Absolute, out uri!)))
                 return;
 
             if (uri.Scheme == null)

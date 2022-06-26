@@ -48,7 +48,7 @@
 
         static bool ValidateUrl(object value) {
             if (value is Uri uri) {
-                string scheme = uri.Scheme?.ToLowerInvariant();
+                string? scheme = uri.Scheme?.ToLowerInvariant();
                 return scheme == "http" || scheme == "https"
                     || scheme == "about" && uri.AbsoluteUri == "about:blank";
             }

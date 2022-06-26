@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-namespace LostTech.Stack.Widgets.DataSources;
+﻿namespace LostTech.Stack.Widgets.DataSources;
 
 using System.Collections.Generic;
 using System.Diagnostics;

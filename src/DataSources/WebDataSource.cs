@@ -9,9 +9,9 @@
 
     public sealed class WebDataSource: DependencyObjectNotifyBase, IRefreshable
     {
-        string url;
-        string content;
-        Exception error;
+        string? url;
+        string? content;
+        Exception? error;
         DateTime contentTimestamp;
         DateTime? expiration;
 
@@ -22,7 +22,7 @@
         /// <summary>
         /// Gets or sets URL to retrieve data from
         /// </summary>
-        public string Url {
+        public string? Url {
             get => this.url;
             set {
                 if (value == this.url)
@@ -35,7 +35,7 @@
         /// <summary>
         /// Gets text content of the response
         /// </summary>
-        public string Content {
+        public string? Content {
             get => this.content;
             private set {
                 if (value == this.content)
@@ -49,7 +49,7 @@
         /// This set to <c>null</c>, when the web server sends correct, but unsuccessful HTTP response.
         /// For that, see <see cref="Response"/>.<see cref="HttpResponseMessage.IsSuccessStatusCode">IsSuccessStatusCode</see>.
         /// </summary>
-        public Exception Error {
+        public Exception? Error {
             get => this.error;
             private set {
                 if (value == this.error) return;
@@ -82,7 +82,7 @@
         /// <summary>
         /// Full response body
         /// </summary>
-        public HttpResponseMessage Response { get; private set; }
+        public HttpResponseMessage? Response { get; private set; }
         /// <summary>
         /// Command, that initiates asynchronous <see cref="Content"/> refresh.
         /// </summary>
@@ -128,7 +128,7 @@
                 var timer = new DispatcherTimer(DispatcherPriority.ApplicationIdle) {
                     Interval = cacheControl.MaxAge.Value,
                 };
-                void ShutdownHandler(object sender, EventArgs e) {
+                void ShutdownHandler(object? sender, EventArgs e) {
                     timer?.Stop();
                     timer = null;
                 }
