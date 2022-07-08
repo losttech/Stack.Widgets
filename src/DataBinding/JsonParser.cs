@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Dynamic;
     using System.Globalization;
+    using System.Linq;
     using System.Text;
     using System.Windows.Data;
     using Newtonsoft.Json;
@@ -16,7 +17,13 @@
                     currentPath.Append(part);
                     if (dynamicObject is null)
                         throw new NullReferenceException($"Object '{currentPath}' is null");
-                    dynamicObject = ((IDictionary<string, object>)dynamicObject)[part];
+
+                    if (part.StartsWith('[') && part.EndsWith(']')
+                        && int.TryParse(part[1..^1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int index)) {
+                        dynamicObject = ((IEnumerable<object>)dynamicObject).ElementAt(index);
+                    } else {
+                        dynamicObject = ((IDictionary<string, object>)dynamicObject)[part];
+                    }
                     currentPath.Append('.');
                 }
             }
