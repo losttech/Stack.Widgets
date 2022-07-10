@@ -2,7 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Markup;
 
+[ContentProperty(nameof(CommandLineValueSource))]
 public class CommandLineOutputSource {
     public CommandLineValueSource CommandLineValueSource { get; set; } = new();
 

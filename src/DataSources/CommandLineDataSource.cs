@@ -2,10 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 
 /// <summary>
 /// Executes specified command and returns the generated text
 /// </summary>
+[ContentProperty(nameof(CommandLineValueSource))]
 public class CommandLineDataSource : AsyncDataSourceBase<string> {
     public CommandLineValueSource CommandLineValueSource { get; set; } = new();
 
