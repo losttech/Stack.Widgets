@@ -20,6 +20,7 @@ public class CommandLineValueSource: DependencyObjectNotifyBase {
         set {
             if (value == this.Program)
                 return;
+            this.startInfo.FileName = value;
             this.OnPropertyChanged();
         }
     }
