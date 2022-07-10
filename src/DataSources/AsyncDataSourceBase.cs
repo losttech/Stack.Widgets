@@ -9,7 +9,7 @@ using LostTech.Stack.Widgets.DataBinding;
 
 using Prism.Commands;
 
-public abstract class AsyncDataSourceBase<T> : DependencyObjectNotifyBase {
+public abstract class AsyncDataSourceBase<T> : DependencyObjectNotifyBase, IRefreshable {
     T? value;
     Exception? error;
     DateTime timestamp;
@@ -34,7 +34,7 @@ public abstract class AsyncDataSourceBase<T> : DependencyObjectNotifyBase {
     }
 
     /// <summary>
-    /// Gets text content of the response
+    /// Gets the content of the response
     /// </summary>
     public T? Value {
         get => this.value;
