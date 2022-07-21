@@ -14,7 +14,7 @@ public class CommandLineOutputSource {
         if (this.CommandLineValueSource is not { } commandLine)
             throw new InvalidOperationException("Value source has not been configured");
 
-        var process = commandLine.Start();
+        using var process = commandLine.Start();
         var stream = commandLine.ValueFromStdErr
             ? process.StandardError
             : process.StandardOutput;

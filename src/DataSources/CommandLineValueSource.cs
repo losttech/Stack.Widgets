@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 using LostTech.Stack.Widgets.DataBinding;
+using LostTech.Stack.Widgets.ProcessManagement;
 
 public class CommandLineValueSource: DependencyObjectNotifyBase {
     readonly ProcessStartInfo startInfo = new() {
@@ -59,5 +60,22 @@ public class CommandLineValueSource: DependencyObjectNotifyBase {
         }
     }
 
-    public Process Start() => Process.Start(this.startInfo)!;
+    bool slave = true;
+    /// <summary>
+    /// When to <c>true</c>, process will be killed when the caller exits.
+    /// Default: <c>true</c>.
+    /// </summary>
+    public bool Slave {
+        get => this.slave;
+        set {
+            if (value == this.slave)
+                return;
+            this.slave = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    internal IProcess Start() => new ProcessWrapper(
+        Process.Start(this.startInfo)!,
+        slave: this.slave);
 }
