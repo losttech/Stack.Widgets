@@ -82,6 +82,9 @@
                     // treat paragraphs as crlf
                     outText.Write("\r\n\r\n");
                     break;
+                case "br":
+                    outText.Write("\r\n");
+                    break;
                 }
 
                 if (node.HasChildNodes) {
